@@ -26,4 +26,19 @@ route.post('/',(req,res)=>{
   
   })
 
+  route.put('/:id',(req,res)=>{
+    const data=[req.body.firstname,req.body.lastname,req.body.age,req.params.id];
+    configmysql.query('update students SET firstname=?,lastname=?,age=? where roll_no=?',data,(err,result,fields)=>{
+   if(err) throw err;
+   else res.json(result);
+    })
+  })
+
+  route.delete('/:id',(req,res)=>{
+    configmysql.query('delete from students where roll_no='+req.params.id,(err,result,fields)=>{
+        if(err) throw err;
+        else res.json(result);
+    })
+  })
+
 module.exports=route;
